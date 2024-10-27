@@ -99,61 +99,43 @@ for (const section of planAheadSection) {
 // Project 5 v2
 // Fetch weather data from the OpenWeatherMap API for a default city (e.g., Boston)
 
-
 const searchButton = document.querySelector('#search-btn');
 const cityInput = document.querySelector('#city-input');
 const forecastUl = document.querySelector('#weather-cards');
 const apiKey = "a6f4a4af866600cddf344e0c6d164029";
 
-
 const getCity = () => {
     const cityName = cityInput.value;
     const url = `https://api.openweathermap.org/data/2.5/forecast?q=${cityName}&appid=${apiKey}&exclude=hourly,minutely,alert,current&units=imperial`;
-
 
     fetch(url)
         .then(function (response) {
             return response.json()
         })
         .then(function (data) {
-            // console.log(data.list)
-            // console.log(data.list[0])
-            // console.log(data.list[0].dt_txt)
-            // console.log(data.list[0].main.temp_min)
-            // console.log(data.list[0].main.temp_max)
-            // console.log(data.list[0].weather[0].description)
-
             const myNewData = data.list.filter(function (item) {
-                // console.log(item.dt_txt)
-                // console.log(item.dt_txt.includes("15:00:00"))
-
                 return item.dt_txt.includes("15:00:00")
             })
             console.log(data.list)
             console.log(myNewData)
 
             forecastUl.innerHTML = ""
+            forecastUl.classList.add('flex', 'flex-row', 'gap-4', 'overflow-x-auto', 'whitespace-nowrap');
+            forecastUl.style.width = 'auto';
 
             myNewData.forEach(function (item) {
-
-                // console.log(data.list[0])
-                // console.log(data.list[0].dt_txt)
-                // console.log(data.list[0].main.temp_min)
-                // console.log(data.list[0].main.temp_max)
-                // console.log(data.list[0].weather[0].description)
-                // console.log(data.list[0].weather[0].icon)
-
                 const li = document.createElement('li')
+                li.classList.add('flex', 'flex-col', 'gap-4', 'rounded-lg', 'overflow-hidden', 'bg-sky-300', 'text-white', 'shrink-0');
+                li.style.width = '200px';
                 li.innerHTML =
                     `
-                    <p class="bg-sky-300 text-white p-4 rounded-t-lg">${item.dt_txt}</p>
-                    <p class=" bg-sky-300 text-white p-4">High: ${item.main.temp_max}</p>
-                    <p class=" bg-sky-300 text-white p-4">Low: ${item.main.temp_min}</p>
-                    <img class=" bg-sky-300 text-white p-4 " src="https://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png" alt="weather-icon">
-                    <p class="bg-sky-300 text-white p-4 flex gap-10 rounded-b-lg">${item.weather[0].description}</p>
+                    <p class="p-4">${item.dt_txt}</p>
+                    <p class="p-4">High: ${item.main.temp_max}</p>
+                    <p class="p-4">Low: ${item.main.temp_min}</p>
+                    <img class="p-4 w-full" src="https://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png" alt="weather-icon">
+                    <p class="p-4 flex gap-2 text-center">${item.weather[0].description}</p>
                 `
                 forecastUl.appendChild(li)
-
             })
         })
 }
