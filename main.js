@@ -150,7 +150,7 @@ const getCity = () => {
             <p class="bg-sky-300 text-white p-4 rounded-t-lg">${item.dt_txt}</p>
             <p class=" bg-sky-300 text-white p-4">High: ${item.main.temp_max}</p>
             <p class=" bg-sky-300 text-white p-4">Low: ${item.main.temp_min}</p>
-			<img class=" bg-sky-300 text-white p-4 max-w-70" src="https://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png" alt="weather-icon">
+			<img class=" bg-sky-300 p-4 max-w-70" src="https://openweathermap.org/img/wn/${item.weather[0].icon}@2x.png" alt="weather-icon">
 			<p class="bg-sky-300 text-white p-4 flex gap-10 rounded-b-lg">${item.weather[0].description}</p>
           `
         forecastUl.appendChild(li)
